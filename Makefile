@@ -50,7 +50,10 @@ OBJS_DIR	=		obj/
 
 SRCS		=		main.c \
 					access.c \
-					error_check.c
+					error_check.c \
+					append_link_list.c \
+					lst_utils.c \
+					display.c
 
 OBJS		=		$(SRCS:.c=.o)
 
@@ -73,7 +76,7 @@ $(NAME) :			$(OBJS_F) | makelibft makeprintf
 $(OBJS_DIR)%.o :	$(SRCS_DIR)%.c $(INCLUDE)
 					@mkdir -p $(OBJS_DIR)
 					@echo "$(YELLOW)Compiling: $< $(BASE_COLOR)"
-					@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+					@$(CC) $(GFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 clean :
 					@rm -rf $(OBJS_DIR)

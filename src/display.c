@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchartie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/27 17:36:50 by tchartie          #+#    #+#             */
-/*   Updated: 2023/12/28 18:23:12 by tchartie         ###   ########.fr       */
+/*   Created: 2023/12/28 22:21:26 by tchartie          #+#    #+#             */
+/*   Updated: 2023/12/28 22:27:05 by tchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+#include <stdio.h>
 
-int	main(int argc, char **argv, char **envp)
+void	display(t_pipex *lst)
 {
-	t_pipex	*pipe;
-	char	**path;
+	int	i;
 
-	if (argc < 5)
-		error_check(FEW_ARGV_ERROR);
-	else if (argc > 5)
-		error_check(MANY_ARGV_ERROR);
-	path = get_path(envp);
-	pipe = append_link_list(path, argv, argc - 3);
-	free_matrix(path);
-	display (pipe);
+	while (lst)
+	{
+		printf("Command : %s\nFlags :", lst->command);
+		i = 0;
+		while (lst->flags[i])
+		{
+			printf("%s ", lst->flags[i]);
+			i++;
+		}
+		printf("\nNb_cmd %d\nPos_cmd %d\n", lst->nb_cmd, lst->pos_cmd);
+		lst = lst->next;
+	}
 }
