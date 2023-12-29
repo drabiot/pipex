@@ -46,14 +46,10 @@ t_pipex	*append_link_list(char **path, char **commands, int nb_cmd)
 
 	first_node = append_node(path, commands[2], nb_cmd, 1);
 	if (!first_node)
-	{
-		free_matrix(path);
 		error_check(LINK_LIST_ERROR);
-	}
 	second_node = append_node(path, commands[3], nb_cmd, 2);
 	if (!second_node)
 	{
-		free_matrix(path);
 		free_lst(&first_node);
 		error_check(LINK_LIST_ERROR);
 	}

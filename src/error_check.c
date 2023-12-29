@@ -22,11 +22,11 @@ void	free_lst(t_pipex **lst)
 
 	if (!lst)
 		return ;
-	while (lst)
+	while (*lst)
 	{
 		tmp = (*lst)->next;
 		free_matrix((*lst)->flags);
-		free(lst);
+		free(*lst);
 		*lst = tmp;
 	}
 	*lst = NULL;
