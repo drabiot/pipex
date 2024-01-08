@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/libft.h"
 
 /*
 ** Iterates the list ’lst’ and applies the function

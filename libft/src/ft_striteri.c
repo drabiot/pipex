@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/libft.h"
 
 /*
 ** Applies the function ’f’ on each character of

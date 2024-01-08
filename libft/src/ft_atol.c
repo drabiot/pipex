@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/libft.h"
 
 /*
 ** Converts the initial portion of the string to a long

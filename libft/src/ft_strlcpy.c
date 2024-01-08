@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/libft.h"
 
 /*
 ** Copy strings. Take the full size of the buffer

@@ -37,7 +37,7 @@ WHITE		=		\033[0;97m
 
 #========== SOURCES ===========#
 
-INCLUDE		=		src/libft.h				#Directory of header
+INCLUDE		=		../include/libft.h
 
 SRCS_DIR	=		src/
 OBJS_DIR	=		obj/

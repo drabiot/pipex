@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/libft.h"
 
 /*
 ** Returns an integer less than, equal to, or greater than zero

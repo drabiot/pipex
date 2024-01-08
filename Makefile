@@ -41,9 +41,7 @@ INCLUDE_DIR	=		include
 INCLUDE		=		$(INCLUDE_DIR)/pipex.h
 
 LIBFT_DIR	=		libft
-LIBFT_NAME	=		libft.a
 PRINTF_DIR	=		ft_printf
-PRINTF_NAME	=		ft_printf.a
 
 SRCS_DIR	=		src/
 OBJS_DIR	=		obj/
@@ -53,6 +51,8 @@ SRCS		=		main.c \
 					error_check.c \
 					append_link_list.c \
 					lst_utils.c \
+					process.c \
+					check.c \
 					display.c
 
 OBJS		=		$(SRCS:.c=.o)

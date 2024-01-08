@@ -35,6 +35,7 @@ t_pipex *append_node(char **path, char *command, int nb_cmd, int pos_cmd)
 	}
 	current->nb_cmd = nb_cmd;
 	current->pos_cmd = pos_cmd;
+	current->pid = 0;
 	current->next = NULL;
 	return (current);
 }

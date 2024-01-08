@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../include/ft_printf.h"
 
 /* ft_putnbr_unsigned()
  * Transform an unsigned int into a string.

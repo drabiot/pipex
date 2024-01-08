@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../include/ft_printf.h"
 
 /* ft_divide()
  * Transform an integer into a string.

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
-#include "../libft/src/libft.h"
+#include "../include/libft.h"
 
 static char	*check_correct_path(char **path, char *command)
 {
@@ -42,11 +42,11 @@ char	*get_correct_path(char	**path, char *command)
 	char	*tmp_cmd;
 	char	**cmd_flags;
 
-	if (access(command, X_OK) == 0)
-		return (command);
 	cmd_flags = ft_split(command, ' ');
 	if (!cmd_flags)
 		return (NULL);
+	if (access(cmd_flags[0], X_OK) == 0)
+		return (cmd_flags[0]);
 	tmp_cmd = ft_strjoin("/", cmd_flags[0]);
 	free_matrix(cmd_flags);
 	if (!tmp_cmd)

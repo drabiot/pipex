@@ -24,5 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	path = get_path(envp);
 	pipe = append_link_list(path, argv, argc - 3);
 	free_matrix(path);
-	display (pipe);
+	check_files(argv, envp, pipe);
+	free_lst(&pipe);
+	return (0);
 }

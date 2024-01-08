@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../include/ft_printf.h"
 
 /* ft_putchar()
  * Return the size of the given character.

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h" 
+#include "../../include/libft.h"
 
 /*
 ** Erases the data in the n bytes of the memory

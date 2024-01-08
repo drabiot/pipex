@@ -23,6 +23,7 @@ typedef struct s_pipex
 	char			**flags;
 	int				nb_cmd;
 	int				pos_cmd;
+	pid_t			pid;
 	struct s_pipex	*next;
 }					t_pipex;
 
@@ -32,7 +33,13 @@ enum	e_error
 	MANY_ARGV_ERROR,
 	PATH_ERROR,
 	PATH_SPLIT_ERROR,
-	LINK_LIST_ERROR
+	LINK_LIST_ERROR,
+	INFILE_ERROR,
+	OUTFILE_ERROR,
+	PIPE_ERROR,
+	FORK_ERROR,
+	DUP_ERROR,
+	EXECVE_ERROR
 } ;
 
 char		**get_path(char **envp);
@@ -48,6 +55,17 @@ void		ft_add_back(t_pipex **lst, t_pipex *new);
 char		**get_flags(char *command, char *path_cmd);
 char		*get_correct_path(char  **path, char *command);
 
+void		check_files(char **argv, char **envp, t_pipex *pipe);
+void		fd_input_check(int *fd_input, t_pipex *pipe, int fd_type);
+
+void	fd_input_check(int *fd_input, t_pipex *pipe, int fd_type);
+
 void    	display(t_pipex *lst);
+void	fd_pipe_check(int *fd_input, t_pipex *pipe, char **envp);
+void	fork_check(int *fd_input, int *fd_pipe, t_pipex *pipe, char **envp);
+void	dup_check(int *fd_input, int *fd_pipe, t_pipex *pipe, char **envp);
+
+void	init_process(int *fd_input, int *fd_pipe, t_pipex *pipe_struct, char **envp);
+void	process(int *fd_in, int *fd_out, t_pipex *pipe_struct, char **envp);
 
 #endif //PIPEX_H

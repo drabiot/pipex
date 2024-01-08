@@ -37,7 +37,7 @@ WHITE		=		\033[0;97m
 
 #========== SOURCES ===========#
 
-INCLUDE		=		src/ft_printf.h			#Directory of header
+INCLUDE		=		../include/ft_printf.h
 
 SRCS_DIR	=		src/
 OBJS_DIR	=		obj/

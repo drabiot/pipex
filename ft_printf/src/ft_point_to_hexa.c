@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../include/ft_printf.h"
 
 /* ft_conv_hexa()
  * Convert a base 10 address to its Lowercase Hexadecimal base.

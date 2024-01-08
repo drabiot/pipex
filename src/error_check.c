@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
-#include "../ft_printf/src/ft_printf.h"
+#include "../include/ft_printf.h"
 
 /*
 ** Free the given stack
@@ -50,13 +50,19 @@ void	free_matrix(char **matrix)
 
 void	error_check(int error)
 {
-	char	*error_message[5];
+	char	*error_message[11];
 
-	error_message[FEW_ARGV_ERROR] = "Error\n(Too few arguments)";
-	error_message[MANY_ARGV_ERROR] = "Error\n(Too many arguments)";
-	error_message[PATH_ERROR] = "Error\n(No \"PATH\" detected)";
-	error_message[PATH_SPLIT_ERROR] = "Error\n(Failed when \"PATH\" splitting)";
-	error_message[LINK_LIST_ERROR] = "Error\n(Failed when create link-list)";
-	ft_printf("%s\n", error_message[error]);
+	error_message[FEW_ARGV_ERROR] = "(Too few arguments)";
+	error_message[MANY_ARGV_ERROR] = "(Too many arguments)";
+	error_message[PATH_ERROR] = "(No \"PATH\" detected)";
+	error_message[PATH_SPLIT_ERROR] = "(Failed when \"PATH\" splitting)";
+	error_message[LINK_LIST_ERROR] = "(Failed when create link-list)";
+	error_message[INFILE_ERROR] = "(Failed when open infile)";
+	error_message[OUTFILE_ERROR] = "(Failed when create outfile)";
+	error_message[PIPE_ERROR] = "(Failed when create pipe)";
+	error_message[FORK_ERROR] = "(Failed when fork)";
+	error_message[DUP_ERROR] = "(Dup error)";
+	error_message[EXECVE_ERROR] = "(Execve error)";
+	ft_printf("Error\n%s\n", error_message[error]);
 	exit (1);
 }

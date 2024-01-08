@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h" 
+#include "../../include/libft.h"
 
 /*
 ** Fills the first n bytes of the memory area
