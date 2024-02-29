@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_check.c                                      :+:      :+:    :+:   */
+/*   error_check_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchartie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 18:46:06 by tchartie          #+#    #+#             */
-/*   Updated: 2023/12/28 22:08:46 by tchartie         ###   ########.fr       */
+/*   Updated: 2024/02/29 21:12:29 by tchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 #include "../include/libft.h"
 
 /*
@@ -50,10 +50,9 @@ void	free_matrix(char **matrix)
 
 void	error_check(int error)
 {
-	char	*error_message[11];
+	char	*error_message[10];
 
 	error_message[FEW_ARGV_ERROR] = "(Too few arguments)";
-	error_message[MANY_ARGV_ERROR] = "(Too many arguments)";
 	error_message[PATH_ERROR] = "(No \"PATH\" detected)";
 	error_message[PATH_SPLIT_ERROR] = "(Failed when \"PATH\" splitting)";
 	error_message[LINK_LIST_ERROR] = "(Failed when create link-list)";

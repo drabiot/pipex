@@ -16,15 +16,17 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	*pipe;
 	char	**path;
+	int		ret;
 
+	path = NULL;
 	if (argc < 5)
 		error_check(FEW_ARGV_ERROR);
-	else if (argc > 5)
+	if (argc > 5)
 		error_check(MANY_ARGV_ERROR);
 	path = get_path(envp);
 	pipe = append_link_list(path, argv, argc - 3);
 	free_matrix(path);
-	check_files(argv, envp, pipe);
+	ret = check_files(argv, envp, pipe);
 	free_lst(&pipe);
-	return (0);
+	return (ret);
 }

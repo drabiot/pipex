@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   append_link_list.c                                 :+:      :+:    :+:   */
+/*   append_link_list_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchartie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 20:22:57 by tchartie          #+#    #+#             */
-/*   Updated: 2023/12/28 21:22:00 by tchartie         ###   ########.fr       */
+/*   Updated: 2024/02/29 21:12:10 by tchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 t_pipex	*append_node(char **path, char *command, int nb_cmd, int pos_cmd)
 {

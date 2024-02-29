@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.c                                          :+:      :+:    :+:   */
+/*   process_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchartie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:13:49 by tchartie          #+#    #+#             */
-/*   Updated: 2024/01/08 18:13:51 by tchartie         ###   ########.fr       */
+/*   Updated: 2024/02/29 21:12:41 by tchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 #include <fcntl.h>
 
 static void	process(t_pipex *pipe_struct, t_pipex *list, char **envp)

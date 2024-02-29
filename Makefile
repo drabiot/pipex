@@ -39,12 +39,15 @@ WHITE		=		\033[0;97m
 
 INCLUDE_DIR	=		include
 INCLUDE		=		$(INCLUDE_DIR)/pipex.h
+INCLUDE_B	=		$(INCLUDE_DIR)/pipex_bonus.h
 
 LIBFT_DIR	=		libft
 PRINTF_DIR	=		ft_printf
 
 SRCS_DIR	=		src/
 OBJS_DIR	=		obj/
+SRCS_D_B	=		bonus/
+OBJS_D_B	=		obj_bonus/
 
 SRCS		=		main.c \
 					access.c \
@@ -52,13 +55,23 @@ SRCS		=		main.c \
 					append_link_list.c \
 					lst_utils.c \
 					process.c \
-					check.c \
-					display.c
+					check.c
+
+SRCS_BONUS	=		main_bonus.c \
+					access_bonus.c \
+					error_check_bonus.c \
+					append_link_list_bonus.c \
+					lst_utils_bonus.c \
+					process_bonus.c \
+					check_bonus.c
 
 OBJS		=		$(SRCS:.c=.o)
+OBJS_BONUS	=		$(SRCS_BONUS:.c=.o)
 
 SRCS_F		=		$(addprefix $(SRCS_DIR),$(SRCS))
 OBJS_F		=		$(addprefix $(OBJS_DIR),$(OBJS))
+SRCS_F_B	=		$(addprefix $(SRCS_D_B),$(SRCS_BONUS))
+OBJS_F_B	=		$(addprefix $(OBJS_D_B),$(OBJS_BONUS))
 
 #========= EXECUTABLE =========#
 
@@ -78,14 +91,25 @@ $(OBJS_DIR)%.o :	$(SRCS_DIR)%.c $(INCLUDE)
 					@echo "$(YELLOW)Compiling: $< $(BASE_COLOR)"
 					@$(CC) $(GFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
+bonus :				$(OBJS_F_B) | makelibft makeprintf
+					@$(CC) $(OBJS_F_B) -o $(NAME) -Llibft -lft -Lft_printf -l:ft_printf.a -I$(INCLUDE_DIR)
+					@echo "$(GREEN)Pipex bonus successfully compiled! $(BASE_COLOR)"
+
+$(OBJS_D_B)%.o :	$(SRCS_D_B)%.c $(INCLUDE_B)
+					@mkdir -p $(OBJS_D_B)
+					@echo "$(YELLOW)Compiling: $< $(BASE_COLOR)"
+					@$(CC) $(GFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+
 clean :
 					@rm -rf $(OBJS_DIR)
+					@rm -rf $(OBJS_D_B)
 					@make -C $(LIBFT_DIR) clean --no-print-directory
 					@make -C $(PRINTF_DIR) clean --no-print-directory
 					@echo "$(BLUE)Pipex objects files cleanned! $(BASE_COLOR)"
 
 fclean :
 					@rm -rf $(OBJS_DIR)
+					@rm -rf $(OBJS_D_B)
 					@echo "$(BLUE)Pipex objects files cleanned! $(BASE_COLOR)"
 					@rm -rf $(NAME)
 					@echo "$(CYAN)Pipex executable file cleanned! $(BASE_COLOR)"
@@ -94,4 +118,4 @@ fclean :
 					
 re :				fclean all
 
-.PHONY :			all makelibft makeprintf clean fclean re
+.PHONY :			all bonus makelibft makeprintf clean fclean re

@@ -33,7 +33,6 @@ typedef struct s_pipex
 enum	e_error
 {
 	FEW_ARGV_ERROR,
-	MANY_ARGV_ERROR,
 	PATH_ERROR,
 	PATH_SPLIT_ERROR,
 	LINK_LIST_ERROR,
