@@ -11,20 +11,44 @@
 /* ************************************************************************** */
 
 #include "../include/pipex_bonus.h"
+#include "../include/libft.h"
+
+static int	execute_commands(char **argv, char **envp, char *tmp_file,
+	t_pipex *pipe)
+{
+	int		ret;
+
+	ret = check_files(argv, envp, pipe, tmp_file);
+	free_lst(&pipe);
+	destroy_tmp(tmp_file);
+	return (ret);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	*pipe;
 	char	**path;
 	int		ret;
+	char	*tmp_file;
 
 	path = NULL;
 	if (argc < 5)
 		error_check(FEW_ARGV_ERROR);
+	generate_key_random();
 	path = get_path(envp);
-	pipe = append_link_list(path, argv, argc - 3);
-	free_matrix(path);
-	ret = check_files(argv, envp, pipe);
-	free_lst(&pipe);
+	tmp_file = NULL;
+	if (ft_strncmp("here_doc", argv[1], 9) == 0)
+	{
+		tmp_file = heredoc(argv, path);
+		pipe = append_link_list(path, argv + 1, argc - 4, tmp_file);
+		free_matrix(path);
+		ret = execute_commands(argv + 1, envp, tmp_file, pipe);
+	}
+	else
+	{
+		pipe = append_link_list(path, argv, argc - 3, tmp_file);
+		free_matrix(path);
+		ret = execute_commands(argv, envp, tmp_file, pipe);
+	}
 	return (ret);
 }

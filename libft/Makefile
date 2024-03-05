@@ -84,10 +84,12 @@ SRCS 		= 		ft_isalpha.c \
 					ft_strdup.c \
 					ft_substr.c \
 					ft_strjoin.c \
+					ft_strnjoin.c \
 					ft_strtrim.c \
 					ft_split.c \
 					ft_strmapi.c \
-					ft_striteri.c
+					ft_striteri.c \
+					ft_random.c
 
 OBJS		=		$(SRCS:.c=.o)
 

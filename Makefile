@@ -13,6 +13,7 @@
 #============ NAME ============#
 
 NAME		=		pipex
+NAME_BONUS	=		pipex_bonus
 
 #========= COMPILATOR =========#
 
@@ -63,7 +64,9 @@ SRCS_BONUS	=		main_bonus.c \
 					append_link_list_bonus.c \
 					lst_utils_bonus.c \
 					process_bonus.c \
-					check_bonus.c
+					check_bonus.c \
+					heredoc_bonus.c \
+					get_next_line.c \
 
 OBJS		=		$(SRCS:.c=.o)
 OBJS_BONUS	=		$(SRCS_BONUS:.c=.o)
@@ -76,6 +79,8 @@ OBJS_F_B	=		$(addprefix $(OBJS_D_B),$(OBJS_BONUS))
 #========= EXECUTABLE =========#
 
 all :				$(NAME)
+
+bonus :				$(NAME_BONUS) all
 
 makelibft :
 					@make -C $(LIBFT_DIR) all --no-print-directory
@@ -91,8 +96,8 @@ $(OBJS_DIR)%.o :	$(SRCS_DIR)%.c $(INCLUDE)
 					@echo "$(YELLOW)Compiling: $< $(BASE_COLOR)"
 					@$(CC) $(GFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
-bonus :				$(OBJS_F_B) | makelibft makeprintf
-					@$(CC) $(OBJS_F_B) -o $(NAME) -Llibft -lft -Lft_printf -l:ft_printf.a -I$(INCLUDE_DIR)
+$(NAME_BONUS) :		$(OBJS_F_B) | makelibft makeprintf
+					@$(CC) $(OBJS_F_B) -o $(NAME_BONUS) -Llibft -lft -Lft_printf -l:ft_printf.a -I$(INCLUDE_DIR)
 					@echo "$(GREEN)Pipex bonus successfully compiled! $(BASE_COLOR)"
 
 $(OBJS_D_B)%.o :	$(SRCS_D_B)%.c $(INCLUDE_B)
@@ -112,6 +117,7 @@ fclean :
 					@rm -rf $(OBJS_D_B)
 					@echo "$(BLUE)Pipex objects files cleanned! $(BASE_COLOR)"
 					@rm -rf $(NAME)
+					@rm -rf $(NAME_BONUS)
 					@echo "$(CYAN)Pipex executable file cleanned! $(BASE_COLOR)"
 					@make -C $(LIBFT_DIR) fclean --no-print-directory
 					@make -C $(PRINTF_DIR) fclean --no-print-directory

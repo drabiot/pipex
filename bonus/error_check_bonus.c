@@ -13,6 +13,15 @@
 #include "../include/pipex_bonus.h"
 #include "../include/libft.h"
 
+void	destroy_tmp(char *tmp_file)
+{
+	if (tmp_file)
+	{
+		unlink(tmp_file);
+		free(tmp_file);
+	}
+}
+
 /*
 ** Free the given stack
 */
@@ -25,7 +34,8 @@ void	free_lst(t_pipex **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		free_matrix((*lst)->flags);
+		if ((*lst)->flags)
+			free_matrix((*lst)->flags);
 		free(*lst);
 		*lst = tmp;
 	}
@@ -48,9 +58,9 @@ void	free_matrix(char **matrix)
 	free(matrix);
 }
 
-void	error_check(int error)
+void	error_soft_check(int error)
 {
-	char	*error_message[10];
+	char	*error_message[11];
 
 	error_message[FEW_ARGV_ERROR] = "(Too few arguments)";
 	error_message[PATH_ERROR] = "(No \"PATH\" detected)";
@@ -62,7 +72,13 @@ void	error_check(int error)
 	error_message[FORK_ERROR] = "(Failed when fork)";
 	error_message[DUP_ERROR] = "(Dup error)";
 	error_message[EXECVE_ERROR] = "(Execve error)";
+	error_message[MALLOC_ERROR] = "(Malloc error)";
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(error_message[error], 2);
+}
+
+void	error_check(int error)
+{
+	error_soft_check(error);
 	exit (1);
 }

@@ -74,7 +74,7 @@ static int	wait_all_pid(t_pipex *list)
 	}
 	waitpid(list->pid, &ret, 0);
 	ret = WEXITSTATUS(ret);
-	return(ret);
+	return (ret);
 }
 
 int	check_files(char **argv, char **envp, t_pipex *pipe_struct)
@@ -89,7 +89,7 @@ int	check_files(char **argv, char **envp, t_pipex *pipe_struct)
 	if (fd_input[0] == -1)
 		fd_input_check(fd_input, pipe_struct, 0);
 	fd_input[1] = open(argv[pipe_struct->nb_cmd + 2],
-		O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_input[1] == -1)
 		fd_input_check(fd_input, pipe_struct, 1);
 	create_pipe(pipe_struct, fd_input);

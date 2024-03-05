@@ -64,5 +64,6 @@ void		fork_check(int *fd_input, int *fd_pipe, t_pipex *pipe, char **envp);
 void		dup_check(int *fd_input, int *fd_pipe, t_pipex *pipe, char **envp);
 void		close_fds(t_pipex *close_fd);
 void		close_error(t_pipex *close_fd, int error);
+void		error_soft_check(int error);
 
 #endif //PIPEX_H

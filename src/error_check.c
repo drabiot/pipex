@@ -25,7 +25,8 @@ void	free_lst(t_pipex **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		free_matrix((*lst)->flags);
+		if ((*lst)->flags)
+			free_matrix((*lst)->flags);
 		free(*lst);
 		*lst = tmp;
 	}
@@ -48,7 +49,7 @@ void	free_matrix(char **matrix)
 	free(matrix);
 }
 
-void	error_check(int error)
+void	error_soft_check(int error)
 {
 	char	*error_message[11];
 
@@ -65,5 +66,10 @@ void	error_check(int error)
 	error_message[EXECVE_ERROR] = "(Execve error)";
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(error_message[error], 2);
+}
+
+void	error_check(int error)
+{
+	error_soft_check(error);
 	exit (1);
 }

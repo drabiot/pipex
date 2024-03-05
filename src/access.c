@@ -24,7 +24,7 @@ static char	*check_correct_path(char **path, char *command)
 	if (access(command, X_OK) == 0)
 	{
 		correct_path = ft_strdup(command);
-		return(correct_path);
+		return (correct_path);
 	}
 	while (path[i] && access_state != 0)
 	{
@@ -32,12 +32,10 @@ static char	*check_correct_path(char **path, char *command)
 		if (!correct_path)
 			return (NULL);
 		access_state = access(correct_path, X_OK);
-		if (access_state != 0)
-			free(correct_path);
 		i++;
+		if (path[i] && access_state != 0)
+			free(correct_path);
 	}
-	if (access_state == -1)
-		return (NULL);
 	return (correct_path);
 }
 
@@ -48,11 +46,12 @@ char	*get_correct_path(char	**path, char *command)
 	char	**cmd_flags;
 
 	cmd_flags = ft_split(command, ' ');
+	tmp_cmd = NULL;
 	if (!cmd_flags)
 		return (NULL);
 	if (access(cmd_flags[0], X_OK) == 0)
 		tmp_cmd = ft_strdup(cmd_flags[0]);
-	else
+	else if (cmd_flags[0])
 		tmp_cmd = ft_strjoin("/", cmd_flags[0]);
 	free_matrix(cmd_flags);
 	if (!tmp_cmd)

@@ -234,6 +234,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 /*            of two given strings            */
 /* ****************************************** */
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strnjoin(char *s1, char const *s2, size_t len);
 
 /* ****************************************** */
 /*                ft_strtrim.c                */
@@ -398,5 +399,24 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 /*                 if needed.                 */
 /* ****************************************** */
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+/* ********************************************************** */
+/*                                                            */
+/*                        ft_random.c                         */
+/*                                                            */
+/* ********************************************************** */
+
+/* ****************************************** */
+/*                 ft_srand()                 */
+/*         Initialize the given seed          */
+/* ****************************************** */
+void	ft_srand(unsigned int seed);
+
+/* ****************************************** */
+/*                 ft_rand()                  */
+/*   Take two numbers and provide a random    */
+/*            number between them             */
+/* ****************************************** */
+int		ft_rand(int a, int b);
 
 #endif //LIBFT_H

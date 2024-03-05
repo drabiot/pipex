@@ -13,7 +13,8 @@
 #include "../include/pipex_bonus.h"
 #include <fcntl.h>
 
-static void	process(t_pipex *pipe_struct, t_pipex *list, char **envp)
+static void	process(t_pipex *pipe_struct, t_pipex *list, char **envp,
+	char *tmp_file)
 {
 	int		ret_execve;
 	int		dup_in;
@@ -22,23 +23,25 @@ static void	process(t_pipex *pipe_struct, t_pipex *list, char **envp)
 	dup_in = dup2(pipe_struct->fd_in, STDIN_FILENO);
 	dup_out = dup2(pipe_struct->fd_out, STDOUT_FILENO);
 	if (dup_in == -1 || dup_out == -1)
-		close_error(list, DUP_ERROR);
+		close_error(list, DUP_ERROR, tmp_file);
 	close_fds(list);
 	ret_execve = execve(pipe_struct->command, pipe_struct->flags, envp);
 	if (ret_execve == -1)
-		close_error(list, EXECVE_ERROR);
+		close_error(list, EXECVE_ERROR, tmp_file);
 }
 
-static void	init_process(t_pipex *list, t_pipex *pipe_struct, char **envp)
+static void	init_process(t_pipex *list, t_pipex *pipe_struct, char **envp,
+	char *tmp_file)
 {
 	pipe_struct->pid = fork();
 	if (pipe_struct->pid == -1)
-		close_error(list, FORK_ERROR);
+		close_error(list, FORK_ERROR, tmp_file);
 	else if (pipe_struct->pid == 0)
-		process(pipe_struct, list, envp);
+		process(pipe_struct, list, envp, tmp_file);
 }
 
-static void	create_pipe(t_pipex *pipe_struct, int fd_input[2])
+static void	create_pipe(t_pipex *pipe_struct, int fd_input[2],
+	char *tmp_file)
 {
 	int		i;
 	int		pipe_ret;
@@ -54,7 +57,7 @@ static void	create_pipe(t_pipex *pipe_struct, int fd_input[2])
 	{
 		pipe_ret = pipe(fd_pipe);
 		if (pipe_ret == -1)
-			close_error(list, PIPE_ERROR);
+			close_error(list, PIPE_ERROR, tmp_file);
 		pipe_struct->fd_out = fd_pipe[1];
 		pipe_struct->next->fd_in = fd_pipe[0];
 		pipe_struct = pipe_struct->next;
@@ -74,10 +77,10 @@ static int	wait_all_pid(t_pipex *list)
 	}
 	waitpid(list->pid, &ret, 0);
 	ret = WEXITSTATUS(ret);
-	return(ret);
+	return (ret);
 }
 
-int	check_files(char **argv, char **envp, t_pipex *pipe_struct)
+int	check_files(char **argv, char **envp, t_pipex *pipe_struct, char *tmp_file)
 {
 	int		fd_input[2];
 	int		ret;
@@ -89,15 +92,15 @@ int	check_files(char **argv, char **envp, t_pipex *pipe_struct)
 	if (fd_input[0] == -1)
 		fd_input_check(fd_input, pipe_struct, 0);
 	fd_input[1] = open(argv[pipe_struct->nb_cmd + 2],
-		O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_input[1] == -1)
 		fd_input_check(fd_input, pipe_struct, 1);
-	create_pipe(pipe_struct, fd_input);
+	create_pipe(pipe_struct, fd_input, tmp_file);
 	if (pipe_struct)
 		list = pipe_struct;
 	while (pipe_struct)
 	{
-		init_process(list, pipe_struct, envp);
+		init_process(list, pipe_struct, envp, tmp_file);
 		pipe_struct = pipe_struct->next;
 	}
 	close_fds(list);
