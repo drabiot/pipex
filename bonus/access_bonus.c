@@ -49,7 +49,7 @@ char	*get_correct_path(char	**path, char *command)
 	tmp_cmd = NULL;
 	if (!cmd_flags)
 		return (NULL);
-	if (access(cmd_flags[0], X_OK) == 0)
+	if (cmd_flags[0] && access(cmd_flags[0], X_OK) == 0)
 		tmp_cmd = ft_strdup(cmd_flags[0]);
 	else if (cmd_flags[0])
 		tmp_cmd = ft_strjoin("/", cmd_flags[0]);
@@ -66,10 +66,30 @@ char	*get_correct_path(char	**path, char *command)
 	return (tmp_path);
 }
 
+static int	is_null_cmd(char *command)
+{
+	int	i;
+
+	i = 0;
+	if (command)
+	{
+		while (command[i])
+		{
+			if (command[i] != ' ' && command[i] != '\n')
+				return (0);
+			i++;
+		}
+	}
+	return (1);
+}
+
 char	**get_flags(char *command, char *path_cmd)
 {
 	char	**flags;
 
+	flags = NULL;
+	if (is_null_cmd(command))
+		return (NULL);
 	flags = ft_split(command, ' ');
 	if (!flags || !*flags)
 		return (NULL);

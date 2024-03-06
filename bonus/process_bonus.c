@@ -22,10 +22,15 @@ static void	process(t_pipex *pipe_struct, t_pipex *list, char **envp,
 
 	dup_in = dup2(pipe_struct->fd_in, STDIN_FILENO);
 	dup_out = dup2(pipe_struct->fd_out, STDOUT_FILENO);
+	ret_execve = 0;
 	if (dup_in == -1 || dup_out == -1)
 		close_error(list, DUP_ERROR, tmp_file);
 	close_fds(list);
-	ret_execve = execve(pipe_struct->command, pipe_struct->flags, envp);
+	if (pipe_struct->flags)
+		ret_execve = execve(pipe_struct->command, pipe_struct->flags,
+				envp);
+	else
+		close_error(list, EXECVE_ERROR, tmp_file);
 	if (ret_execve == -1)
 		close_error(list, EXECVE_ERROR, tmp_file);
 }

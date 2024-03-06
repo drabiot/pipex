@@ -60,8 +60,7 @@ static char	*create_file(char **path, int *tmp_fd)
 	return (tmp_file);
 }
 
-static void	set_infile(int tmp_fd, char *limiter, char **path,
-	char *tmp_file)
+static void	set_infile(int tmp_fd, char *limiter)
 {
 	char	*line;
 	int		len_limiter;
@@ -69,7 +68,7 @@ static void	set_infile(int tmp_fd, char *limiter, char **path,
 	len_limiter = ft_strlen(limiter);
 	ft_putstr_fd("> ", STDOUT_FILENO);
 	line = get_next_line(STDIN_FILENO);
-	while ((ft_strncmp(line, limiter, len_limiter + 1)) && line)
+	while (line && ft_strncmp(line, limiter, len_limiter + 1))
 	{
 		ft_putstr_fd(line, tmp_fd);
 		free(line);
@@ -77,14 +76,7 @@ static void	set_infile(int tmp_fd, char *limiter, char **path,
 		line = get_next_line(STDIN_FILENO);
 	}
 	close(tmp_fd);
-	if (!line)
-	{
-		free(limiter);
-		free_matrix(path);
-		destroy_tmp(tmp_file);
-		error_check(MALLOC_ERROR);
-	}
-	else
+	if (line)
 		free(line);
 }
 
@@ -102,7 +94,7 @@ char	*heredoc(char **argv, char **path)
 	}
 	file = create_file(path, &tmp_fd);
 	argv[2] = file;
-	set_infile(tmp_fd, limiter, path, file);
+	set_infile(tmp_fd, limiter);
 	if (limiter)
 		free(limiter);
 	return (file);

@@ -26,6 +26,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	unsigned char	*sent2;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (0);
 	sent1 = (void *)s1;
 	sent2 = (void *)s2;
 	while (((sent1[i] || sent2[i]) && (sent1[i] - sent2[i] == 0)) && (n > i))

@@ -13,45 +13,68 @@
 #include "../include/pipex_bonus.h"
 #include "../include/libft.h"
 
-static char	*create_line(char **line, int fd)
+static char	*read_line(int fd, char *buffer, char *save)
 {
-	static char	buff[BUFFER_SIZE + 1];
-	int			countread;
+	int		nb_char;
+	char	*tmp;
 
-	*line = ft_strdup(buff);
-	countread = read(fd, buff, BUFFER_SIZE);
-	while (!(ft_strchr(*line, '\n')) && countread > 0)
+	while (!ft_strchr(buffer, '\n'))
 	{
-		buff[countread] = '\0';
-		*line = ft_strnjoin(*line, buff, countread);
+		nb_char = read(fd, buffer, BUFFER_SIZE);
+		if (nb_char == -1)
+			return (NULL);
+		if (!nb_char)
+			break ;
+		buffer[nb_char] = 0;
+		tmp = save;
+		save = ft_strjoin(tmp, buffer);
+		if (tmp)
+			free(tmp);
+		tmp = NULL;
 	}
-	if (ft_strlen(*line) == 0)
-	{
-		free(*line);
+	return (save);
+}
+
+static char	*extract(char *line)
+{
+	size_t	count;
+	char	*save;
+
+	count = 0;
+	while (line[count] != '\n' && line[count] != '\0')
+		count++;
+	if (line[count] == '\0' || line[1] == '\0')
 		return (NULL);
+	save = ft_substr(line, count + 1, ft_strlen(line) - count);
+	line[count + 1] = '\0';
+	if (!save)
+		return (NULL);
+	if (!*save)
+	{
+		free(save);
+		save = NULL;
 	}
-	return (buff);
+	return (save);
 }
 
 char	*get_next_line(int fd)
 {
-	char	*buff;
-	char	*line;
-	char	*newline;
-	int		to_copy;
+	char		*line;
+	char		*buffer;
+	static char	*save[1024];
 
-	buff = create_line(&line, fd);
-	newline = ft_strchr(line, '\n');
-	if (newline != NULL)
-	{
-		to_copy = newline - line + 1;
-		ft_strlcpy(buff, newline + 1, BUFFER_SIZE + 1);
-	}
-	else
-	{
-		to_copy = ft_strlen(line);
-		ft_strlcpy(buff, "", BUFFER_SIZE + 1);
-	}
-	line[to_copy] = '\0';
+	if (fd > 1024 || fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	*buffer = 0;
+	if (!buffer)
+		return (NULL);
+	line = read_line(fd, buffer, save[fd]);
+	free(buffer);
+	if (!line)
+		return (NULL);
+	if (!*line)
+		return (NULL);
+	save[fd] = extract(line);
 	return (line);
 }
