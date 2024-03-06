@@ -12,11 +12,11 @@
 
 #include "../include/pipex.h"
 
-t_pipex	*append_node(char **path, char *command, int nb_cmd, int pos_cmd)
+t_cmd	*append_node(char **path, char *command, int nb_cmd, int pos_cmd)
 {
-	t_pipex	*current;
+	t_cmd	*current;
 
-	current = malloc(sizeof(t_pipex));
+	current = malloc(sizeof(t_cmd));
 	if (!current)
 		return (NULL);
 	current->command = get_correct_path(path, command);
@@ -30,11 +30,11 @@ t_pipex	*append_node(char **path, char *command, int nb_cmd, int pos_cmd)
 	return (current);
 }
 
-t_pipex	*append_link_list(char **path, char **commands, int nb_cmd)
+t_cmd	*append_link_list(char **path, char **commands, int nb_cmd)
 {
-	t_pipex	*last_node;
-	t_pipex	*current_node;
-	t_pipex	*first;
+	t_cmd	*last_node;
+	t_cmd	*current_node;
+	t_cmd	*first;
 	int		i;
 
 	i = 0;

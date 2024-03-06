@@ -15,7 +15,7 @@
 /*
 ** Return the last node of the given stack
 */
-t_pipex	*ft_last_node(t_pipex *lst)
+t_cmd	*ft_last_node(t_cmd *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -27,9 +27,9 @@ t_pipex	*ft_last_node(t_pipex *lst)
 /*
 ** Add a new node in the front (tail) of a given stack
 */
-void	ft_add_back(t_pipex **lst, t_pipex *new)
+void	ft_add_back(t_cmd **lst, t_cmd *new)
 {
-	t_pipex	*buffer;
+	t_cmd	*buffer;
 
 	if (!lst)
 		return ;

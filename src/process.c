@@ -13,7 +13,7 @@
 #include "../include/pipex.h"
 #include <fcntl.h>
 
-static void	process(t_pipex *pipe_struct, t_pipex *list, char **envp)
+static void	process(t_cmd *pipe_struct, t_cmd *list, char **envp)
 {
 	int		ret_execve;
 	int		dup_in;
@@ -34,7 +34,7 @@ static void	process(t_pipex *pipe_struct, t_pipex *list, char **envp)
 		close_error(list, EXECVE_ERROR);
 }
 
-static void	init_process(t_pipex *list, t_pipex *pipe_struct, char **envp)
+static void	init_process(t_cmd *list, t_cmd *pipe_struct, char **envp)
 {
 	pipe_struct->pid = fork();
 	if (pipe_struct->pid == -1)
@@ -43,12 +43,12 @@ static void	init_process(t_pipex *list, t_pipex *pipe_struct, char **envp)
 		process(pipe_struct, list, envp);
 }
 
-static void	create_pipe(t_pipex *pipe_struct, int fd_input[2])
+static void	create_pipe(t_cmd *pipe_struct, int fd_input[2])
 {
 	int		i;
 	int		pipe_ret;
 	int		fd_pipe[2];
-	t_pipex	*list;
+	t_cmd	*list;
 
 	i = 0;
 	list = NULL;
@@ -67,7 +67,7 @@ static void	create_pipe(t_pipex *pipe_struct, int fd_input[2])
 	pipe_struct->fd_out = fd_input[1];
 }
 
-static int	wait_all_pid(t_pipex *list)
+static int	wait_all_pid(t_cmd *list)
 {
 	int	ret;
 
@@ -82,11 +82,11 @@ static int	wait_all_pid(t_pipex *list)
 	return (ret);
 }
 
-int	check_files(char **argv, char **envp, t_pipex *pipe_struct)
+int	check_files(char **argv, char **envp, t_cmd *pipe_struct)
 {
 	int		fd_input[2];
 	int		ret;
-	t_pipex	*list;
+	t_cmd	*list;
 
 	ret = 0;
 	list = NULL;

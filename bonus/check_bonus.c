@@ -12,7 +12,7 @@
 
 #include "../include/pipex_bonus.h"
 
-void	fd_input_check(int *fd_input, t_pipex *pipe, int fd_type)
+void	fd_input_check(int *fd_input, t_cmd *pipe, int fd_type)
 {
 	if (fd_type == 0 && fd_input[0] == -1)
 		error_soft_check(INFILE_ERROR);
@@ -24,7 +24,7 @@ void	fd_input_check(int *fd_input, t_pipex *pipe, int fd_type)
 	}
 }
 
-void	close_fds(t_pipex *close_fd)
+void	close_fds(t_cmd *close_fd)
 {
 	while (close_fd)
 	{
@@ -36,7 +36,7 @@ void	close_fds(t_pipex *close_fd)
 	}
 }
 
-void	close_error(t_pipex *close_fd, int error, char *tmp_file)
+void	close_error(t_cmd *close_fd, int error, char *tmp_file)
 {
 	close_fds(close_fd);
 	free_lst(&close_fd);

@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_pipex	*pipe;
+	t_cmd	*pipe;
 	char	**path;
 	int		ret;
 

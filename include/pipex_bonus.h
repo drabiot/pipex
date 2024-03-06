@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct s_pipex
+typedef struct s_cmd
 {
 	char			*command;
 	char			**flags;
@@ -27,8 +27,8 @@ typedef struct s_pipex
 	int				fd_in;
 	int				fd_out;
 	pid_t			pid;
-	struct s_pipex	*next;
-}					t_pipex;
+	struct s_cmd	*next;
+}					t_cmd;
 
 enum	e_error
 {
@@ -48,24 +48,24 @@ enum	e_error
 char		**get_path(char **envp);
 void		error_check(int error);
 void		free_matrix(char **matrix);
-void		free_lst(t_pipex **lst);
-t_pipex		*append_link_list(char **path, char	**commands, int nb_cmd, \
+void		free_lst(t_cmd **lst);
+t_cmd		*append_link_list(char **path, char	**commands, int nb_cmd, \
 char *tmp_file);
-t_pipex		*append_node(char **path, char *command, int nb_cmd, int pos_cmd);
-t_pipex		*ft_last_node(t_pipex *lst);
-void		ft_add_back(t_pipex **lst, t_pipex *new);
+t_cmd		*append_node(char **path, char *command, int nb_cmd, int pos_cmd);
+t_cmd		*ft_last_node(t_cmd *lst);
+void		ft_add_back(t_cmd **lst, t_cmd *new);
 char		**get_flags(char *command, char *path_cmd);
 char		*get_correct_path(char **path, char *command);
-int			check_files(char **argv, char **envp, t_pipex *pipe, \
+int			check_files(char **argv, char **envp, t_cmd *pipe, \
 char *tmp_file);
-void		fd_input_check(int *fd_input, t_pipex *pipe, int fd_type);
-void		fd_input_check(int *fd_input, t_pipex *pipe, int fd_type);
-void		display(t_pipex *lst);
-void		fd_pipe_check(int *fd_input, t_pipex *pipe, char **envp);
-void		fork_check(int *fd_input, int *fd_pipe, t_pipex *pipe, char **envp);
-void		dup_check(int *fd_input, int *fd_pipe, t_pipex *pipe, char **envp);
-void		close_fds(t_pipex *close_fd);
-void		close_error(t_pipex *close_fd, int error, char *tmp_file);
+void		fd_input_check(int *fd_input, t_cmd *pipe, int fd_type);
+void		fd_input_check(int *fd_input, t_cmd *pipe, int fd_type);
+void		display(t_cmd *lst);
+void		fd_pipe_check(int *fd_input, t_cmd *pipe, char **envp);
+void		fork_check(int *fd_input, int *fd_pipe, t_cmd *pipe, char **envp);
+void		dup_check(int *fd_input, int *fd_pipe, t_cmd *pipe, char **envp);
+void		close_fds(t_cmd *close_fd);
+void		close_error(t_cmd *close_fd, int error, char *tmp_file);
 void		error_soft_check(int error);
 void		generate_key_random(void);
 char		*heredoc(char **argv, char **path);

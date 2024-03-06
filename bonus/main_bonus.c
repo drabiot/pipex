@@ -14,7 +14,7 @@
 #include "../include/libft.h"
 
 static int	execute_commands(char **argv, char **envp, char *tmp_file,
-	t_pipex *pipe)
+	t_cmd *pipe)
 {
 	int		ret;
 
@@ -26,7 +26,7 @@ static int	execute_commands(char **argv, char **envp, char *tmp_file,
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_pipex	*pipe;
+	t_cmd	*pipe;
 	char	**path;
 	int		ret;
 	char	*tmp_file;

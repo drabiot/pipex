@@ -16,9 +16,9 @@
 /*
 ** Free the given stack
 */
-void	free_lst(t_pipex **lst)
+void	free_lst(t_cmd **lst)
 {
-	t_pipex	*tmp;
+	t_cmd	*tmp;
 
 	if (!lst)
 		return ;
